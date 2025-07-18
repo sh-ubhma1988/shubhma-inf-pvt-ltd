@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Auto-Fill Form Example</title>
+</head>
+<body>
+  <h2>Account Details Form</h2>
+  <form id="accountForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br><br>
+
+    <label for="phone">Phone:</label>
+    <input type="tel" id="phone" name="phone"><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('accountForm');
+
+    // Load stored values on page load
+    window.onload = () => {
+      if (localStorage.getItem('accountData')) {
+        const data = JSON.parse(localStorage.getItem('accountData'));
+        document.getElementById(' full name').value = data.name || '';
+        document.getElementById('email').value = data.email || '';
+        document.getElementById('phone').value = data.phone || '';
+        document.getElementById(' address').value = data.address || '';
+      }
+    };
+
+    // Save data on form submit
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // prevent actual form submission
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        phone: form.phone.value
+      };
+      localStorage.setItem('accountData', JSON.stringify(data));
+      alert('Form submitted and data saved!');
+    });
+  </script>
+</body>
+</html>
